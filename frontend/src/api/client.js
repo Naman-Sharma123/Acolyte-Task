@@ -1,5 +1,13 @@
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+
 async function requestJson(url, { method = 'GET', body } = {}) {
-  const res = await fetch(url, {
+  const res = await fetch(API_BASE + url, {
+    method,
+    headers: {
+      'Content-Type': body ? 'application/json' : undefined,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  })
     method,
     headers: {
       'Content-Type': body ? 'application/json' : undefined,
@@ -37,7 +45,7 @@ export function apiPut(path, body) {
 }
 
 export async function downloadFile(path, query) {
-  const url = buildUrl(path, query)
+  const url = buildUrl(API_BASE + path, query)
   const res = await fetch(url, { method: 'GET' })
   if (!res.ok) {
     const text = await res.text()

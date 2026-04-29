@@ -1,0 +1,8 @@
+[services.backend]
+path = "backend"
+
+[services.frontend]
+path = "frontend"
+
+[services.python]
+path = "python"
