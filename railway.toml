@@ -1,8 +1,9 @@
 [services.backend]
-path = "backend"
+root = "backend"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
 
 [services.frontend]
-path = "frontend"
-
-[services.python]
-path = "python"
+root = "frontend"
+buildCommand = "npm run build"
+startCommand = "npm run preview"
