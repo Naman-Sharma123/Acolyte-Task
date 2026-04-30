@@ -21,11 +21,28 @@ function createApp() {
 
   app.use(express.json({ limit: '1mb' }))
 
-  const corsOrigin = process.env.CORS_ORIGIN || '*'
+  const rawCorsOrigin = process.env.CORS_ORIGIN || '*'
+  const allowedOrigins = rawCorsOrigin
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean)
+
+  const corsOrigin =
+    allowedOrigins.length === 0 || allowedOrigins.includes('*')
+      ? '*'
+      : (origin, cb) => {
+          // Allow same-origin/non-browser requests and listed origins.
+          if (!origin || allowedOrigins.includes(origin)) {
+            cb(null, true)
+            return
+          }
+          cb(new Error(`CORS blocked for origin: ${origin}`))
+        }
+
   app.use(
     cors({
       origin: corsOrigin,
-      credentials: true,
+      credentials: false,
     }),
   )
 
