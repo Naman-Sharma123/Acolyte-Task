@@ -32,7 +32,14 @@ function NavButton({ to, children }) {
 
 function AppLayout() {
   return (
-    <Box sx={{ minHeight: '100svh', background: 'background.default', pt: 2 }}>
+    <Box
+      sx={{
+        minHeight: '100svh',
+        pt: 2,
+        background:
+          'radial-gradient(circle at 15% 10%, rgba(59,130,246,0.18), transparent 32%), radial-gradient(circle at 85% 20%, rgba(168,85,247,0.15), transparent 30%)',
+      }}
+    >
       <AppBar
         position="static"
         elevation={0}
@@ -40,6 +47,7 @@ function AppLayout() {
           mx: { xs: 1, sm: 2, md: 3 },
           borderRadius: 3,
           overflow: 'hidden',
+          background: 'linear-gradient(90deg, #1e3a8a 0%, #3730a3 100%)',
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between', gap: 2 }}>

@@ -184,7 +184,6 @@ export default function Leads() {
 
   useEffect(() => {
     fetchLeads()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const openCreate = () => {
@@ -485,4 +484,3 @@ export default function Leads() {
     </Box>
   )
 }
-

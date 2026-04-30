@@ -8,20 +8,27 @@ async function requestJson(url, { method = 'GET', body } = {}) {
     },
     body: body ? JSON.stringify(body) : undefined,
   })
-    method,
-    headers: {
-      'Content-Type': body ? 'application/json' : undefined,
-    },
-    body: body ? JSON.stringify(body) : undefined,
-  })
 
+  const contentType = res.headers.get('content-type') || ''
   const text = await res.text()
-  const data = text ? JSON.parse(text) : null
+  let data = null
+
+  if (text && contentType.includes('application/json')) {
+    data = JSON.parse(text)
+  }
 
   if (!res.ok) {
     const message = data?.message || data?.error || res.statusText
     throw new Error(message)
   }
+
+  if (text && !contentType.includes('application/json')) {
+    const hint = API_BASE
+      ? `Expected JSON from ${API_BASE + url} but got ${contentType || 'unknown content type'}.`
+      : `Expected JSON from ${url} but got ${contentType || 'unknown content type'}. Set VITE_API_BASE_URL to your backend URL.`
+    throw new Error(hint)
+  }
+
   return data
 }
 
@@ -64,4 +71,3 @@ export async function downloadFile(path, query) {
   link.remove()
   URL.revokeObjectURL(link.href)
 }
-
