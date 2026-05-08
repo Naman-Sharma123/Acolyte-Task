@@ -1,4 +1,4 @@
-# Acolyte Technologies — Lead Dashboard & Reporting
+# LeadFlow CRM — MERN Lead Management Dashboard & Reporting
 
 ## Overview
 This project is a Lead Dashboard & Reporting system built for the **ACOLYTE IT Interview Task**.
